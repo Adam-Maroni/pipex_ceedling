@@ -1,15 +1,15 @@
 <?xml version='1.0' encoding='utf-8' ?>
 <TestRun>
 	<FailedTests/>
-	<SuccessfulTests/>
-	<IgnoredTests>
+	<SuccessfulTests>
 		<Test id="1">
-			<Name>test/test_premierModule.c::test_premierModule_NeedToImplement</Name>
+			<Name>test/test_parser.c::test_parser_only_4_args_should_be_accepted</Name>
 		</Test>
-	</IgnoredTests>
+	</SuccessfulTests>
+	<IgnoredTests/>
 	<Statistics>
 		<Tests>1</Tests>
-		<Ignores>1</Ignores>
+		<Ignores>0</Ignores>
 		<FailuresTotal>0</FailuresTotal>
 		<Errors>0</Errors>
 		<Failures>0</Failures>
