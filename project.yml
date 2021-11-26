@@ -87,7 +87,7 @@
 # tests or releases. These options are MERGED with the options in supplemental yaml files.
 :libraries:
   :placement: :end
-  :flag: "-l${1}"
+  :flag: "${1}"
   :path_flag: "${1}"
   :system: []    # for example, you might list 'm' to grab the math library
   :test: []
@@ -96,7 +96,10 @@
 :plugins:
   :load_paths:
     - "#{Ceedling.load_path}"
-    - "/var/lib/gems/2.5.0/gems/ceedling-0.31.1/plugins"
+      #Uncomment when on Linux
+      #- "/var/lib/gems/2.5.0/gems/ceedling-0.31.1/plugins"
+      #Uncomment when on MACos
+    - "/mnt/nfs/homes/amaroni/.brew/Cellar/gem-ceedling/0.31.1/gems/ceedling-0.31.1/plugins"
   :enabled:
     - stdout_pretty_tests_report
     - module_generator
