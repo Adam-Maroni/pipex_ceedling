@@ -2,7 +2,7 @@
 
 #include "unity.h"
 #include <string.h>
-#include "init.h"
+#include "listpipex.h"
 TEST_FILE("../src/extract.c")
 
 int argc = 5;
@@ -39,9 +39,9 @@ void tearDown(void)
 	free(envp);
 }
 
-void test_init_NeedToImplement(void)
+void test_ft_init_pipex_list_should_initialize_the_list()
 {
-    TEST_IGNORE_MESSAGE("Need to Implement init");
+	t_list_pipex *list 
 }
 
 #endif // TEST

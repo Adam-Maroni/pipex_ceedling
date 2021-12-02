@@ -6,7 +6,7 @@
 /*   By: amaroni <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 18:28:26 by amaroni           #+#    #+#             */
-/*   Updated: 2021/12/02 14:26:25 by amaroni          ###   ########.fr       */
+/*   Updated: 2021/12/02 15:22:45 by amaroni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ typedef struct s_list_pipex
 	char *file;
 	char *cmd_binary;
 	char *cmd_args;
-	struct s_list *next;
+	struct s_list_pipex *next;
 } t_list_pipex;
 
 /* parser.c */
@@ -31,6 +31,7 @@ char *ft_extract_envar_path(char **envp);
 char *ft_return_cmd_path(char *path_string, char *cmd);
 char *ft_extract_cmd(char *arg);
 char *ft_extract_cmd_args(char *arg);
-void	ft_init_pipex_list(char **argv, t_list_pipex *list);
-void	ft_free_pipex_list(t_list_pipex *list);
+t_list_pipex	*ft_init_pipex_list(char **argv, t_list_pipex *list);
+void ft_delone_pipex_list(t_list_pipex *list);
+void ft_free_init_pipex_list(t_list_pipex **list);
 #endif
