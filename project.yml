@@ -96,9 +96,9 @@
 :plugins:
   :load_paths:
     - "#{Ceedling.load_path}"
-      #Uncomment when on Linux
+      #Uncomment when on XubuntuVm
       #- "/var/lib/gems/2.5.0/gems/ceedling-0.31.1/plugins"
-      #Uncomment when on MACos
+      #Uncomment when on cluster Linux
     - "/mnt/nfs/homes/amaroni/.brew/Cellar/gem-ceedling/0.31.1/gems/ceedling-0.31.1/plugins"
   :enabled:
     - stdout_pretty_tests_report

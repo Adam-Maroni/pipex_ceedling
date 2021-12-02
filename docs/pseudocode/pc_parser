@@ -1,0 +1,30 @@
+START OF ft_parsing()
+	INIT path_string = NULL
+	INIT path_tab = NULL
+	INIT true_path = NULL
+	IF (ARGC != 4)
+		RETURN ERROR
+	ENDIF
+	FOR (i=0, argv[i], i++)
+		IF(ft_strfind("PATH", argv[i]))
+			path_string = argv[i];
+		ENDIF
+	ENDFOR
+	IF (path_string == NULL)
+		RETURN ERROR
+	ENDIF
+	path_tab = ft_split(":", path_string);
+	IF (path_tab == NULL)
+		RETURN ERROR
+	ENDIF
+	FOR (i=0, path_tab[i], i++)
+		IF(acces(path_tab[i], F_OK) == 0)
+			true_path = path_tab[i]
+		ENDIF
+	ENDFOR
+	IF (true_path == NULL)
+		RETURN ERROR	
+	ENDIF
+END OF ft_parsing
+
+
