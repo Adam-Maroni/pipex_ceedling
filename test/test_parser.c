@@ -39,13 +39,14 @@ void tearDown(void)
 }
 
 
-/* ft_return_cmd_path */
-void test_ft_return_cmd_path_should_return_null_if_one_input_is_null(void)
+/* ft_return_cmd_binary_absolute_path */
+void test_ft_return_cmd_binary_absolute_path(void)
 {
-	TEST_ASSERT_NULL(ft_return_cmd_path(NULL, "something"));
-	TEST_ASSERT_NULL(ft_return_cmd_path("somethig",NULL));
+	char *rt = ft_return_cmd_binary_absolute_path("wc", envp[2]);
+	TEST_ASSERT_TRUE(access(rt, F_OK) == 0);
+	if (rt)
+		free(rt);
 }
-
 
 
 /* ft_parsing */
