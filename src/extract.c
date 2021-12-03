@@ -6,12 +6,16 @@
 /*   By: amaroni <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 14:17:43 by amaroni           #+#    #+#             */
-/*   Updated: 2021/12/02 14:19:35 by amaroni          ###   ########.fr       */
+/*   Updated: 2021/12/03 15:28:55 by amaroni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "extract.h"
 
+/*
+ * Prend en entree la string comprenant la cmd et ses arguments
+ * et retourne en sortie uniquement la commande.
+ */
 char	*ft_extract_cmd(char *arg)
 {
 	size_t	i;
@@ -30,6 +34,10 @@ char	*ft_extract_cmd(char *arg)
 	return (rt);
 }
 
+/*
+ * Prend en entree la string comprenant la cmd et ses arguments
+ * et retourne en sortie uniquement les arguments.
+ */
 char	*ft_extract_cmd_args(char *arg)
 {
 	size_t	start;

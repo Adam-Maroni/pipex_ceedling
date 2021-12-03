@@ -39,9 +39,17 @@ void tearDown(void)
 	free(envp);
 }
 
-void test_ft_init_pipex_list_should_initialize_the_list()
+void test_ft_init_pipex_list_should_initialize_the_list(void)
 {
-	t_list_pipex *list 
+	t_list_pipex *list = ft_init_pipex_list(argv, NULL);
+	TEST_ASSERT_EQUAL_STRING("inFile", list->file);
+	TEST_ASSERT_EQUAL_STRING("ls", list->cmd_binary);
+	TEST_ASSERT_EQUAL_STRING("-l", list->cmd_args);
+	TEST_ASSERT_EQUAL_STRING("outFile", list->next->file);
+	TEST_ASSERT_EQUAL_STRING("wc", list->next->cmd_binary);
+	TEST_ASSERT_EQUAL_STRING("-l -m -c", list->next->cmd_args);
+	TEST_ASSERT_NULL(list->next->next);
+	ft_free_pipex_list(&list);
 }
 
 #endif // TEST

@@ -6,7 +6,7 @@
 /*   By: amaroni <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 19:16:01 by amaroni           #+#    #+#             */
-/*   Updated: 2021/12/02 10:23:58 by amaroni          ###   ########.fr       */
+/*   Updated: 2021/12/03 15:50:49 by amaroni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,5 @@
 
 int main(int argc, char **argv, char **envp)
 {
-	char *rt = NULL;
-	rt = ft_return_envar_path(envp);
-	printf("%s\n",rt);
 	return (0);
 }

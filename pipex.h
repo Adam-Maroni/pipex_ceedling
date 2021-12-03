@@ -6,7 +6,7 @@
 /*   By: amaroni <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 18:28:26 by amaroni           #+#    #+#             */
-/*   Updated: 2021/12/02 15:22:45 by amaroni          ###   ########.fr       */
+/*   Updated: 2021/12/03 15:04:29 by amaroni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,11 @@ char *ft_extract_envar_path(char **envp);
 char *ft_return_cmd_path(char *path_string, char *cmd);
 char *ft_extract_cmd(char *arg);
 char *ft_extract_cmd_args(char *arg);
+
 t_list_pipex	*ft_init_pipex_list(char **argv, t_list_pipex *list);
 void ft_delone_pipex_list(t_list_pipex *list);
-void ft_free_init_pipex_list(t_list_pipex **list);
+void ft_free_pipex_list(t_list_pipex **list);
+void ft_addback_pipex_list(t_list_pipex **alst, t_list_pipex *new);
+t_list_pipex *ft_new_pipex_list(char *file, char *cmd_binary, char *cmd_args);
+t_list_pipex *ft_last_pipex_list(t_list_pipex *list);
 #endif
