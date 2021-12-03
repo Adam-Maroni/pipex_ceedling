@@ -7,6 +7,7 @@
 int argc = 5;
 char **argv;
 char **envp;
+char **cmd;
 
 void setUp(void)
 {
@@ -25,6 +26,15 @@ void setUp(void)
 	envp[3] = strdup("envp3");
 	envp[4] = strdup("envp4");
 	envp[5] = NULL;
+
+
+	cmd = (char**)calloc(argc + 1, sizeof(char*));
+	cmd[0] = strdup("wc");
+	cmd[1] = strdup("cat");
+	cmd[2] = strdup("ls");
+	cmd[3] = strdup("mkdir");
+	cmd[4] = strdup("mv");
+	cmd[5] = NULL;
 }
 
 void tearDown(void)
@@ -33,19 +43,24 @@ void tearDown(void)
 	{
 		free(argv[i]);
 		free(envp[i]);
+		free(cmd[i]);
 	}
 	free(argv);
 	free(envp);
+	free(cmd);
 }
 
 
-/* ft_return_cmd_binary_absolute_path */
-void test_ft_return_cmd_binary_absolute_path(void)
+/* ft_return_cmd_absolute_path */
+void test_ft_return_cmd_absolute_path_should_return_valid_binary(void)
 {
-	char *rt = ft_return_cmd_binary_absolute_path("wc", envp[2]);
-	TEST_ASSERT_TRUE(access(rt, F_OK) == 0);
-	if (rt)
-		free(rt);
+	for (int i=0; cmd[i]; i++)
+	{
+		char *rt = ft_return_cmd_absolute_path(cmd[i], envp[2]);
+		TEST_ASSERT_TRUE(access(rt, F_OK) == 0);
+		if (rt)
+			free(rt);
+	}
 }
 
 
