@@ -6,7 +6,7 @@
 /*   By: amaroni <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 14:17:43 by amaroni           #+#    #+#             */
-/*   Updated: 2021/12/03 15:28:55 by amaroni          ###   ########.fr       */
+/*   Updated: 2021/12/03 23:02:38 by amaroni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,10 @@ char	*ft_extract_cmd(char *arg)
 
 	i = 0;
 	rt = NULL;
-	if (!arg || !*arg)
+	if (!arg)
 		return (NULL);
+	if (!*arg)
+		return (ft_strdup(""));
 	while (arg[i] && !ft_isspace(arg[i]))
 		i++;
 	rt = (char *)ft_calloc(sizeof(char), i + 1);
@@ -46,8 +48,10 @@ char	*ft_extract_cmd_args(char *arg)
 
 	start = 0;
 	rt = NULL;
-	if (!arg || !*arg)
+	if (!arg)
 		return (NULL);
+	if (!*arg)
+		return (ft_strdup(""));
 	while (arg[start] && !ft_isspace(arg[start]))
 		start++;
 	end = start + 1;

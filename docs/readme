@@ -1,3 +1,8 @@
+TODO:
+	Le parsing est plus ou moin finis. Maintenant il faut tester l'execution des commandes avec execve au travers de la liste chainee.
+	Tester avec cmd1 cmd1args puis avec cmd2 cmd2args.
+	Une fois cela mis en place, creer le code permettant de realiser le pipe et tester la redirection.
+
 PARSING:
 	extract
 	parser

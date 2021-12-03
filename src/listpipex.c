@@ -6,7 +6,7 @@
 /*   By: amaroni <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 14:11:29 by amaroni           #+#    #+#             */
-/*   Updated: 2021/12/03 15:07:15 by amaroni          ###   ########.fr       */
+/*   Updated: 2021/12/03 22:37:19 by amaroni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,29 +16,41 @@
  * This function initliaze the list
  * based on arguments inserted as program's input.
  */
-t_list_pipex	*ft_init_pipex_list(char **argv, t_list_pipex *list)
+t_list_pipex	*ft_init_pipex_list(int argc, char **argv)
 {
+	t_list_pipex	*list;
+	char			*tmp;
+	size_t			i;
+
 	if (!argv)
 		return (NULL);
-	if (list)
+	list = NULL;
+	i = 1;
+	while (argv[i])
 	{
-		printf("list deja initialisée\n");
-		return (NULL);
+		if (i == 1 || i == argc - 1)
+			ft_addback_pipex_list(&list, ft_new_pipex_list(argv[i]));
+		else
+		{
+			tmp = ft_extract_cmd(argv[i]);
+			ft_addback_pipex_list(&list, ft_new_pipex_list(tmp));
+			free(tmp);
+			tmp = ft_extract_cmd_args(argv[i]);
+			ft_addback_pipex_list(&list, ft_new_pipex_list(tmp));
+			free(tmp);
+		}
+		i++;
 	}
-	list = ft_new_pipex_list(argv[1], ft_extract_cmd(argv[2]), ft_extract_cmd_args(argv[2]));
-	ft_addback_pipex_list(&list, ft_new_pipex_list(argv[4], ft_extract_cmd(argv[3]), ft_extract_cmd_args(argv[3])));
 	return (list);
 }
 
-void ft_delone_pipex_list(t_list_pipex *list)
+void	ft_delone_pipex_list(t_list_pipex *list)
 {
-	free(list->file);
-	free(list->cmd_binary);
-	free(list->cmd_args);
+	free(list->content);
 	free(list);
 }
 
-void ft_free_pipex_list(t_list_pipex **list)
+void	ft_free_pipex_list(t_list_pipex **list)
 {
 	t_list_pipex	*current;
 	t_list_pipex	*previous;
@@ -54,9 +66,9 @@ void ft_free_pipex_list(t_list_pipex **list)
 	(*list) = NULL;
 }
 
-void ft_addback_pipex_list(t_list_pipex **alist, t_list_pipex *new)
+void	ft_addback_pipex_list(t_list_pipex **alist, t_list_pipex *new)
 {
-	t_list_pipex *list;
+	t_list_pipex	*list;
 
 	list = ft_last_pipex_list(*alist);
 	if (!list)
@@ -66,7 +78,7 @@ void ft_addback_pipex_list(t_list_pipex **alist, t_list_pipex *new)
 	new->next = NULL;
 }
 
-t_list_pipex *ft_last_pipex_list(t_list_pipex *list)
+t_list_pipex	*ft_last_pipex_list(t_list_pipex *list)
 {
 	if (!list)
 		return (NULL);
@@ -75,18 +87,14 @@ t_list_pipex *ft_last_pipex_list(t_list_pipex *list)
 	return (list);
 }
 
-
-t_list_pipex *ft_new_pipex_list(char *file, char *cmd_binary, char *cmd_args)
+t_list_pipex	*ft_new_pipex_list(char *content)
 {
 	t_list_pipex	*new;
 
 	new = (t_list_pipex *)malloc(sizeof(t_list_pipex));
 	if (!new)
 		return (NULL);
-	new->file = ft_strdup(file);
-	new->cmd_binary = ft_strdup(cmd_binary);
-	new->cmd_args = ft_strdup(cmd_args);
+	new->content = ft_strdup(content);
 	new->next = NULL;
 	return (new);
-
 }

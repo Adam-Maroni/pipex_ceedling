@@ -6,7 +6,7 @@
 /*   By: amaroni <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 17:53:56 by amaroni           #+#    #+#             */
-/*   Updated: 2021/12/03 20:47:03 by amaroni          ###   ########.fr       */
+/*   Updated: 2021/12/03 20:59:22 by amaroni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,11 +87,6 @@ char	*ft_return_cmd_absolute_path(char *cmd, char *path)
 	return (rt);
 }
 
-/*
- * Return needle if needle found in haystack.
- * If needle not found or haystack is empty
- * return NULL
- */
 void	*ft_parsing(int argc, char **argv, char **envp)
 {
 	if (argc != 5)
@@ -100,4 +95,3 @@ void	*ft_parsing(int argc, char **argv, char **envp)
 	//ft_rt_envar_path
 	return (argv[1]);
 }
-
