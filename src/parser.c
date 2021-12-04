@@ -6,7 +6,7 @@
 /*   By: amaroni <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 17:53:56 by amaroni           #+#    #+#             */
-/*   Updated: 2021/12/03 20:59:22 by amaroni          ###   ########.fr       */
+/*   Updated: 2021/12/04 21:54:29 by amaroni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,4 +94,40 @@ void	*ft_parsing(int argc, char **argv, char **envp)
 	//Save info to pipex list
 	//ft_rt_envar_path
 	return (argv[1]);
+}
+
+
+void	ft_swap2elements(char **tab, size_t index1, size_t index2)
+{
+	char *tmp;
+
+	tmp = tab[index1];
+	tab[index1] = tab[index2];
+	tab[index2] = tmp;
+}
+
+
+/*
+ * This function is needed cause
+ * argv[0] return an error message.
+ * So we create a new table without it.
+ */
+char	**ft_argv_to_excveargv(int argc, char **argv)
+{
+	size_t	i;
+	char	**rt;
+
+	if (!argc || !argv)
+		return (NULL);
+	rt = (char **)ft_calloc(sizeof(char *), argc);
+	if (!rt)
+		return (NULL);
+	i = 0;
+	while (i < argc - 1)
+	{
+		rt[i] = ft_strdup(argv[i + 1]);
+		i++;
+	}
+	rt[i] = NULL;
+	return (rt);
 }

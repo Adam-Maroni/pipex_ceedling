@@ -4,6 +4,16 @@
 #include "parser.h"
 #include <string.h>
 
+#define PROG "./pipex"
+#define FILE1 "inFile"
+#define CMD1 "ls"
+#define CMD1ARGS "-l"
+#define CMD2 "wc"
+#define CMD2ARGS "-l -m -c"
+#define FILE2 "outFile"
+
+
+
 int argc = 5;
 char **argv;
 char **envp;
@@ -12,11 +22,11 @@ char **cmd;
 void setUp(void)
 {
 	argv = (char**)calloc(argc + 1, sizeof(char*));
-	argv[0] = strdup("./pipex");
-	argv[1] = strdup("inFile");
-	argv[2] = strdup("ls -l");
-	argv[3] = strdup("wc -l -m -c");
-	argv[4] = strdup("outFile");
+	argv[0] = strdup(PROG);
+	argv[1] = strdup(FILE1);
+	argv[2] = strdup(CMD1 " " CMD1ARGS);
+	argv[3] = strdup(CMD2 " " CMD2ARGS);
+	argv[4] = strdup(FILE2);
 	argv[5] = NULL;
 
 	envp = (char**)calloc(argc + 1, sizeof(char*));
@@ -27,14 +37,14 @@ void setUp(void)
 	envp[4] = strdup("envp4");
 	envp[5] = NULL;
 
+        cmd = (char**)calloc(argc + 1, sizeof(char*));
+        cmd[0] = strdup("wc");
+        cmd[1] = strdup("cat");
+        cmd[2] = strdup("ls");
+        cmd[3] = strdup("mkdir");
+        cmd[4] = strdup("mv");
+        cmd[5] = NULL;
 
-	cmd = (char**)calloc(argc + 1, sizeof(char*));
-	cmd[0] = strdup("wc");
-	cmd[1] = strdup("cat");
-	cmd[2] = strdup("ls");
-	cmd[3] = strdup("mkdir");
-	cmd[4] = strdup("mv");
-	cmd[5] = NULL;
 }
 
 void tearDown(void)
@@ -63,6 +73,28 @@ void test_ft_return_cmd_absolute_path_should_return_valid_binary(void)
 	}
 }
 
+/* ft_swap2elements */
+void test_ft_swap2elements_should_swap_index_given(void)
+{
+	ft_swap2elements(argv, 1, 2);	
+	TEST_ASSERT_EQUAL_STRING(CMD1" "CMD1ARGS, argv[1]);
+	TEST_ASSERT_EQUAL_STRING(FILE1, argv[2]);
+}
+
+
+/* ft_argv_to_excveargv */
+void test_ft_argv_to_excveargv_should_return_a_tab_without_argv0(void)
+{
+	char **tab = ft_argv_to_excveargv(argc, argv);
+	TEST_ASSERT_EQUAL_STRING(FILE1,tab[0]);
+	TEST_ASSERT_EQUAL_STRING(CMD1 " " CMD1ARGS, tab[1]);
+	TEST_ASSERT_EQUAL_STRING(CMD2 " " CMD2ARGS, tab[2]);
+	TEST_ASSERT_EQUAL_STRING(FILE2, tab[3]);
+	TEST_ASSERT_NULL(tab[4]);
+	for(int i = 0; tab[i]; i++)
+		free(tab[i]);
+	free(tab);
+}
 
 /* ft_parsing */
 void test_ft_parsing_should_return_null_if_argc_is_not_5(void)
