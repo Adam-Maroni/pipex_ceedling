@@ -3,7 +3,7 @@
 LIBFT_ARCHIVE = ../libft/libft.a
 SRC = $(wildcard ../src/*.c) test_excve.c
 FLAGS = -g
-CMD = "cat"
+CMD = "cat -ne"
 FILE = "testFile"
 OUTPUT1 = expected
 OUTPUT2 = obtained
