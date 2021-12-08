@@ -6,7 +6,7 @@
 /*   By: amaroni <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 14:11:29 by amaroni           #+#    #+#             */
-/*   Updated: 2021/12/03 22:37:19 by amaroni          ###   ########.fr       */
+/*   Updated: 2021/12/08 15:07:22 by amaroni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 t_list_pipex	*ft_init_pipex_list(int argc, char **argv)
 {
 	t_list_pipex	*list;
-	char			*tmp;
+	char			*cmd;
 	size_t			i;
 
 	if (!argv)
@@ -32,12 +32,13 @@ t_list_pipex	*ft_init_pipex_list(int argc, char **argv)
 			ft_addback_pipex_list(&list, ft_new_pipex_list(argv[i]));
 		else
 		{
-			tmp = ft_extract_cmd(argv[i]);
-			ft_addback_pipex_list(&list, ft_new_pipex_list(tmp));
-			free(tmp);
-			tmp = ft_extract_cmd_args(argv[i]);
-			ft_addback_pipex_list(&list, ft_new_pipex_list(tmp));
-			free(tmp);
+			cmd = ft_extract_cmd(argv[i]);
+			ft_addback_pipex_list(&list, ft_new_pipex_list(cmd));
+			free(cmd);
+			cmd = ft_extract_cmd_args(argv[i]);
+			if (cmd)
+				ft_addback_pipex_list(&list, ft_new_pipex_list(cmd));
+			free(cmd);
 		}
 		i++;
 	}

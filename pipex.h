@@ -6,7 +6,7 @@
 /*   By: amaroni <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 18:28:26 by amaroni           #+#    #+#             */
-/*   Updated: 2021/12/04 21:30:36 by amaroni          ###   ########.fr       */
+/*   Updated: 2021/12/08 16:56:32 by amaroni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*ft_strcat_path_and_cmd(char *path, char *cmd);
 char	*ft_return_cmd_absolute_path(char *cmd, char *path);
 void	*ft_parsing(int argc, char **argv, char **envp);
 void	ft_swap2elements(char **tab, size_t index1, size_t index2);
-char	**ft_argv_to_excveargv(int argc, char **argv);
+char	**ft_argv_to_execveargv(int argc, t_list_pipex *list);
 
 /* extract.c */
 char	*ft_extract_envar_path(char **envp);

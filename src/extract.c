@@ -6,7 +6,7 @@
 /*   By: amaroni <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 14:17:43 by amaroni           #+#    #+#             */
-/*   Updated: 2021/12/03 23:02:38 by amaroni          ###   ########.fr       */
+/*   Updated: 2021/12/08 14:03:58 by amaroni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ char	*ft_extract_cmd(char *arg)
 /*
  * Prend en entree la string comprenant la cmd et ses arguments
  * et retourne en sortie uniquement les arguments.
+ * Si la commande ne connait aucun arguments, elle retourne NULL.
  */
 char	*ft_extract_cmd_args(char *arg)
 {
@@ -52,8 +53,13 @@ char	*ft_extract_cmd_args(char *arg)
 		return (NULL);
 	if (!*arg)
 		return (ft_strdup(""));
-	while (arg[start] && !ft_isspace(arg[start]))
+	while (arg[start])
+		if (ft_isspace(arg[start]))
+			break ;
+	else
 		start++;
+	if (!arg[start] || ft_isspace(arg[start + 1]))
+		return (NULL);
 	end = start + 1;
 	while (arg[end])
 		end++;

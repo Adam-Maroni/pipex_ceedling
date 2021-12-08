@@ -36,7 +36,6 @@ void setUp(void)
 	envp[4] = strdup("envp4");
 	envp[5] = NULL;
 }
-
 void tearDown(void)
 {
 	for (int i = 0; i < argc ; i++)
@@ -47,7 +46,6 @@ void tearDown(void)
 	free(argv);
 	free(envp);
 }
-
 /* ft_extract_envar_path */
 void test_ft_extract_envar_path_should_return_null_if_path_not_found(void)
 {
@@ -62,7 +60,6 @@ void test_ft_extract_envar_path_should_return_path_string_if_found(void)
 	TEST_ASSERT_NOT_NULL(rt);
 	TEST_ASSERT_EQUAL_STRING(envp[2],rt);
 }
-
 /* ft_extract_cmd */
 void test_ft_extract_cmd_should_return_null_when_empty_or_null_passed(void)
 {
@@ -87,11 +84,15 @@ void test_ft_extract_cmd_should_return_cmd(void)
 	if (cmd)
 		free(cmd);
 }
-
 /* ft_extract_cmd_args */
 void test_ft_extract_cmd_args_should_return_null_when_null_passed(void)
 {
 	TEST_ASSERT_NULL(ft_extract_cmd_args(NULL));
+}
+void test_ft_extract_cmd_args_should_return_null_when_no_args_is_passed(void)
+{
+	TEST_ASSERT_NULL(ft_extract_cmd_args("cat"));
+	TEST_ASSERT_NULL(ft_extract_cmd_args("cat   "));
 }
 void test_ft_extract_cmd_args_should_return_empty_when_empty_is_passed(void)
 {
@@ -112,5 +113,4 @@ void test_ft_extract_cmd_args_should_return_cmd_args(void)
 	if (cmd_args)
 		free(cmd_args);
 }
-
 #endif // TEST

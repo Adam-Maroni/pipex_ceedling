@@ -1,4 +1,6 @@
 TODO:
+	Rajouter des cas de tests pour ft_init_pipex_list
+	Repenser le passage de la liste vers tableau_execve
 	Execve ne fonctionne pas lorsque l'on utilise des arguments avec la commande. Corriger ca.
 	Tester avec cmd1 cmd1args puis avec cmd2 cmd2args.
 	Une fois cela mis en place, creer le code permettant de realiser le pipe et tester la redirection.

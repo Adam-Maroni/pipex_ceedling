@@ -12,11 +12,13 @@ TEST_FILE("../src/extract.c")
 #define CMD1ARGS "-l"
 #define CMD2 "wc"
 #define CMD2ARGS "-l -m -c"
+#define CMD3 "ps"
+#define CMD4 "du"
 #define FILE2 "outFile"
 
 
 
-int argc = 5;
+int argc = 8;
 char **argv;
 char **envp;
 
@@ -27,8 +29,10 @@ void setUp(void)
 	argv[1] = strdup(FILE1);
 	argv[2] = strdup(CMD1 " " CMD1ARGS);
 	argv[3] = strdup(CMD2 " " CMD2ARGS);
-	argv[4] = strdup(FILE2);
-	argv[5] = NULL;
+	argv[4] = strdup(CMD3);
+	argv[5] = strdup(CMD4);
+	argv[6] = strdup(FILE2);
+	argv[7] = NULL;
 }
 
 void tearDown(void)
@@ -48,8 +52,10 @@ void test_ft_init_pipex_list_should_initialize_the_list(void)
 	TEST_ASSERT_EQUAL_STRING(CMD1ARGS, list->next->next->content);
 	TEST_ASSERT_EQUAL_STRING(CMD2, list->next->next->next->content);
 	TEST_ASSERT_EQUAL_STRING(CMD2ARGS, list->next->next->next->next->content);
-	TEST_ASSERT_EQUAL_STRING(FILE2, list->next->next->next->next->next->content);
-	TEST_ASSERT_NULL(list->next->next->next->next->next->next);
+	TEST_ASSERT_EQUAL_STRING(CMD3, list->next->next->next->next->next->content);
+	TEST_ASSERT_EQUAL_STRING(CMD4, list->next->next->next->next->next->next->content);
+	TEST_ASSERT_EQUAL_STRING(FILE2, list->next->next->next->next->next->next->next->content);
+	TEST_ASSERT_NULL(list->next->next->next->next->next->next->next->next);
 	ft_free_pipex_list(&list);
 }
 

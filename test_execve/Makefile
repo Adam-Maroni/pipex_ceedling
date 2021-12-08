@@ -2,7 +2,7 @@
 
 LIBFT_ARCHIVE = ../libft/libft.a
 SRC = $(wildcard ../src/*.c) test_excve.c
-FLAGS = -g
+FLAGS = -g -fsanitize=address
 CMD = "cat -ne"
 FILE = "testFile"
 OUTPUT1 = expected
@@ -14,4 +14,4 @@ all:
 	@./$(OUTEXE) $(FILE) $(CMD)
 	@echo "Command used : $(CMD) $(FILE)"
 	@diff -s $(OUTPUT1) $(OUTPUT2) 
-	@rm -rf $(OUTPUT1) $(OUTPUT2) $(OUTEXE)
+
