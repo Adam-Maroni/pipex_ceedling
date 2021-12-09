@@ -112,5 +112,6 @@ void test_ft_parsing_should_return_null_if_argc_is_not_5(void)
 }
 /*--------------------------------------------------*/
 
+
 #endif // TEST
 

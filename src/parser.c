@@ -6,7 +6,7 @@
 /*   By: amaroni <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 17:53:56 by amaroni           #+#    #+#             */
-/*   Updated: 2021/12/08 17:52:13 by amaroni          ###   ########.fr       */
+/*   Updated: 2021/12/09 13:38:02 by amaroni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,3 +140,6 @@ char	**ft_argv_to_execveargv(int argc, t_list_pipex *list)
 	rt[i] = NULL;
 	return (rt);
 }
+
+
+
