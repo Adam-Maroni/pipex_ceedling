@@ -16,9 +16,7 @@ TEST_FILE("../src/extract.c")
 #define CMD4 "du"
 #define FILE2 "outFile"
 
-
-
-int argc = 8;
+int argc = 7;
 char **argv;
 char **envp;
 
@@ -32,7 +30,6 @@ void setUp(void)
 	argv[4] = strdup(CMD3);
 	argv[5] = strdup(CMD4);
 	argv[6] = strdup(FILE2);
-	argv[7] = NULL;
 }
 
 void tearDown(void)
@@ -47,15 +44,19 @@ void tearDown(void)
 void test_ft_init_pipex_list_should_initialize_the_list(void)
 {
 	t_list_pipex *list = ft_init_pipex_list(argc, argv);
-	TEST_ASSERT_EQUAL_STRING(FILE1, list->content);
-	TEST_ASSERT_EQUAL_STRING(CMD1, list->next->content);
-	TEST_ASSERT_EQUAL_STRING(CMD1ARGS, list->next->next->content);
-	TEST_ASSERT_EQUAL_STRING(CMD2, list->next->next->next->content);
-	TEST_ASSERT_EQUAL_STRING(CMD2ARGS, list->next->next->next->next->content);
-	TEST_ASSERT_EQUAL_STRING(CMD3, list->next->next->next->next->next->content);
-	TEST_ASSERT_EQUAL_STRING(CMD4, list->next->next->next->next->next->next->content);
-	TEST_ASSERT_EQUAL_STRING(FILE2, list->next->next->next->next->next->next->next->content);
-	TEST_ASSERT_NULL(list->next->next->next->next->next->next->next->next);
+	TEST_ASSERT_EQUAL_STRING(CMD1, list->content);
+	TEST_ASSERT_EQUAL_STRING(CMD1ARGS, list->next->content);
+	TEST_ASSERT_EQUAL_STRING(FILE1, list->next->next->content);
+	TEST_ASSERT_EQUAL_STRING("|", list->next->next->next->content);
+	TEST_ASSERT_EQUAL_STRING(CMD2, list->next->next->next->next->content);
+	TEST_ASSERT_EQUAL_STRING(CMD2ARGS, list->next->next->next->next->next->content);
+	TEST_ASSERT_EQUAL_STRING("|", list->next->next->next->next->next->next->content);
+	TEST_ASSERT_EQUAL_STRING(CMD3, list->next->next->next->next->next->next->next->content);
+	TEST_ASSERT_EQUAL_STRING("|", list->next->next->next->next->next->next->next->next->content);
+	TEST_ASSERT_EQUAL_STRING(CMD4, list->next->next->next->next->next->next->next->next->next->content);
+	TEST_ASSERT_EQUAL_STRING("|", list->next->next->next->next->next->next->next->next->next->next->content);
+	TEST_ASSERT_EQUAL_STRING(FILE2, list->next->next->next->next->next->next->next->next->next->next->next->content);
+	TEST_ASSERT_NULL(list->next->next->next->next->next->next->next->next->next->next->next->next);
 	ft_free_pipex_list(&list);
 }
 
