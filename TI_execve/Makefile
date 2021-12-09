@@ -4,7 +4,7 @@ LIBFT_ARCHIVE = ../libft/libft.a
 SRC = $(wildcard ../src/*.c) test_excve.c
 FLAGS = -g -fsanitize=address
 CMD = "cat -ne"
-FILE = "testFile"
+FILE = "inFile"
 OUTPUT1 = expected
 OUTPUT2 = obtained
 OUTEXE = test_excve

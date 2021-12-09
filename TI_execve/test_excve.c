@@ -22,18 +22,6 @@ char **test_tabexecve(t_list_pipex *list)
 	return (rt);
 }
 
-void ft_free_execve_data(t_execve_data *tofree)
-{
-	if (tofree->cmd_path)
-		free(tofree->cmd_path);
-	if (tofree->prog_tab[0])
-		free(tofree->prog_tab[0]);
-	if (tofree->prog_tab[1])
-		free(tofree->prog_tab[1]);
-	if (tofree->prog_tab[2])
-		free(tofree->prog_tab[2]);
-}
-
 /* this function go through the list from the starting point and then return the data to feed inside execve */
 t_execve_data *ft_list_to_execve(t_execve_data *t_list_pipex *start, char **envp)
 {
