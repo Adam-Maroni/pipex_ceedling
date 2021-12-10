@@ -83,24 +83,6 @@ void test_ft_swap2elements_should_swap_index_given(void)
 }
 
 
-/* ft_argv_to_execveargv */
-void test_ft_argv_to_execveargv_should_return_a_tab_without_argv0(void)
-{
-	t_list_pipex *list = ft_init_pipex_list(argc, argv);
-	char **tab = ft_argv_to_execveargv(argc, list);
-	TEST_ASSERT_EQUAL_STRING(FILE1,tab[0]);
-	TEST_ASSERT_EQUAL_STRING(CMD1, tab[1]);
-	TEST_ASSERT_EQUAL_STRING(CMD1ARGS, tab[2]);
-	TEST_ASSERT_EQUAL_STRING(CMD2, tab[3]);
-	TEST_ASSERT_EQUAL_STRING(CMD2ARGS, tab[4]);
-	TEST_ASSERT_EQUAL_STRING(FILE2, tab[5]);
-	TEST_ASSERT_NULL(tab[6]);
-	for(int i = 0; tab[i]; i++)
-		free(tab[i]);
-	ft_free_pipex_list(&list);
-	free(tab);
-}
-
 /* ft_parsing */
 void test_ft_parsing_should_return_null_if_argc_is_not_5(void)
 {

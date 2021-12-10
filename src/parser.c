@@ -6,7 +6,7 @@
 /*   By: amaroni <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 17:53:56 by amaroni           #+#    #+#             */
-/*   Updated: 2021/12/09 13:38:02 by amaroni          ###   ########.fr       */
+/*   Updated: 2021/12/10 10:22:09 by amaroni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,41 +105,3 @@ void	ft_swap2elements(char **tab, size_t index1, size_t index2)
 	tab[index1] = tab[index2];
 	tab[index2] = tmp;
 }
-
-
-/*
- * This function is needed cause
- * argv[0] return an error message.
- * So we create a new table without it.
- */
-char	**ft_argv_to_execveargv(int argc, t_list_pipex *list)
-{
-	size_t		i;
-	char		**rt;
-	t_list_pipex	*tmp;
-
-	if (!argc || !list)
-		return (NULL);
-	i = 1;
-	tmp = list;
-	while (tmp)
-	{
-		tmp = tmp->next;
-		i++;
-	}
-	rt = (char **)ft_calloc(sizeof(char *), i + 1);
-	if (!rt)
-		return (NULL);
-	i = 0;
-	while (list)
-	{
-		rt[i] = ft_strdup(list->content);
-		list = list->next;
-		i++;
-	}
-	rt[i] = NULL;
-	return (rt);
-}
-
-
-
