@@ -41,9 +41,21 @@ void tearDown(void)
 	free(argv);
 }
 
+/* ft_init_pipex_list */
+void test_ft_init_pipex_list_should_return_null_if_argv_is_null(void)
+{
+	TEST_ASSERT_NULL(ft_init_pipex_list(argc, NULL));
+}
+void test_ft_init_pipex_list_should_return_null_if_argc_below_2(void)
+{
+	for (int i = 1; i > -10 ; i--)
+		TEST_ASSERT_NULL(ft_init_pipex_list(i, argv));
+}
 void test_ft_init_pipex_list_should_initialize_the_list(void)
 {
-	t_list_pipex *list = ft_init_pipex_list(argc, argv);
+	t_list_pipex *list = NULL;
+
+	list = ft_init_pipex_list(argc, argv);
 	TEST_ASSERT_EQUAL_STRING(CMD1, list->content);
 	TEST_ASSERT_EQUAL_STRING(CMD1ARGS, list->next->content);
 	TEST_ASSERT_EQUAL_STRING(FILE1, list->next->next->content);
@@ -57,6 +69,24 @@ void test_ft_init_pipex_list_should_initialize_the_list(void)
 	TEST_ASSERT_EQUAL_STRING("|", list->next->next->next->next->next->next->next->next->next->next->content);
 	TEST_ASSERT_EQUAL_STRING(FILE2, list->next->next->next->next->next->next->next->next->next->next->next->content);
 	TEST_ASSERT_NULL(list->next->next->next->next->next->next->next->next->next->next->next->next);
+	ft_free_pipex_list(&list);
+
+	int new_argc = 3;
+	char **new_argv = (char**)calloc(new_argc, sizeof(*new_argv));
+	new_argv[0] = strdup("./pipex");
+	new_argv[1] = strdup("inFile");
+	new_argv[2] = strdup("cat -ne");
+	list = ft_init_pipex_list(new_argc, (char**)new_argv);
+	//test
+	TEST_ASSERT_EQUAL_STRING("cat", list->content);
+	TEST_ASSERT_EQUAL_STRING("-ne", list->next->content);
+	TEST_ASSERT_EQUAL_STRING("inFile", list->next->next->content);
+	TEST_ASSERT_NULL(list->next->next->next);
+	//free
+	for(int i = 0; i < new_argc; i++)
+		if (new_argv[i])
+			free(new_argv[i]);
+	free(new_argv);
 	ft_free_pipex_list(&list);
 }
 

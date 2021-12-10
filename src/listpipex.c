@@ -6,7 +6,7 @@
 /*   By: amaroni <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 14:11:29 by amaroni           #+#    #+#             */
-/*   Updated: 2021/12/09 10:53:10 by amaroni          ###   ########.fr       */
+/*   Updated: 2021/12/10 09:47:31 by amaroni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ t_list_pipex	*ft_init_pipex_list(int argc, char **argv)
 	char			*cmd;
 	size_t			i;
 
-	if (!argv)
+	if (!argv || argc < 2)
 		return (NULL);
 	list = NULL;
 	i = 2;
-	while (i < argc - 1)
+	while (i < argc)
 	{
 		cmd = ft_extract_cmd(argv[i]);
 		ft_addback_pipex_list(&list, ft_new_pipex_list(cmd));
@@ -37,10 +37,10 @@ t_list_pipex	*ft_init_pipex_list(int argc, char **argv)
 		free(cmd);
 		if (i == 2)
 			ft_addback_pipex_list(&list, ft_new_pipex_list(argv[1]));
-		ft_addback_pipex_list(&list, ft_new_pipex_list("|"));
+		if (i < argc - 1)
+			ft_addback_pipex_list(&list, ft_new_pipex_list("|"));
 		i++;
 	}
-	ft_addback_pipex_list(&list, ft_new_pipex_list(argv[i]));
 	return (list);
 }
 
