@@ -14,5 +14,3 @@ define plist
 	end
 end
 
-b test_ft_init_pipex_list_should_initialize_the_list
-run

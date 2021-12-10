@@ -8,20 +8,21 @@
 TEST_FILE("../src/parser.c")
 TEST_FILE("../src/extract.c")
 TEST_FILE("../src/parser.c")
+TEST_FILE("../src/listpipex.c")
 
 #define PROG "./pipex"
-#define FILE1 "inFile"
+#define FILE1 "/mnt/nfs/homes/amaroni/cursus_42/pipex_ceedling/TI_execve/inFile"
 #define CMD1 "ls"
 #define CMD1ARGS "-l"
 #define CMD2 "wc"
 #define CMD2ARGS "-l -m -c"
 #define CMD3 "ps"
 #define CMD4 "du"
-#define FILE2 "outFile"
+#define FILE2 "/mnt/nfs/homes/amaroni/cursus_42/pipex_ceedling/TI_execve/outFile"
 
 int argc = 7;
-char **argv;
-char **envp;
+char **argv = NULL;
+char **envp = NULL;
 
 void setUp(void)
 {
@@ -42,8 +43,8 @@ void setUp(void)
 	envp[4] = strdup("envp4");
 	envp[5] = strdup("envp5");
 	envp[6] = NULL;
-}
 
+}
 void tearDown(void)
 {
 	for (int i = 0; i < argc ; i++)
@@ -54,7 +55,6 @@ void tearDown(void)
 	free(argv);
 	free(envp);
 }
-
 /* ft_return_excve_data */
 void test_ft_return_excve_data_should_return_null_if_null_cmd_or_envp_is_null(void)
 {
@@ -80,7 +80,7 @@ void test_ft_return_excve_data_should_return_data_even_if_file_is_null(void)
 	TEST_ASSERT_EQUAL_STRING(cmd_absolute_path, data->cmd_path);
 	TEST_ASSERT_EQUAL_STRING(CMD1,     data->prog_tab[0]);
 	TEST_ASSERT_EQUAL_STRING(CMD1ARGS, data->prog_tab[1]);
-	TEST_ASSERT_EQUAL_STRING("",    data->prog_tab[2]);
+	TEST_ASSERT_NULL(data->prog_tab[2]);
 	TEST_ASSERT_NULL(data->prog_tab[3]);
 	ft_free_execve_data(data);	
 	free(cmd_absolute_path);
@@ -100,8 +100,8 @@ void test_ft_return_excve_data_should_return_data_even_if_cmdargs_is_null(void)
 	data = ft_return_excve_data(cmd, cmd_args, file, envp);
 	TEST_ASSERT_EQUAL_STRING(cmd_absolute_path, data->cmd_path);
 	TEST_ASSERT_EQUAL_STRING(CMD1,     data->prog_tab[0]);
-	TEST_ASSERT_EQUAL_STRING("", data->prog_tab[1]);
-	TEST_ASSERT_EQUAL_STRING(FILE1, data->prog_tab[2]);
+	TEST_ASSERT_EQUAL_STRING(FILE1, data->prog_tab[1]);
+	TEST_ASSERT_NULL(data->prog_tab[2]);
 	TEST_ASSERT_NULL(data->prog_tab[3]);
 	ft_free_execve_data(data);	
 	free(cmd_absolute_path);
@@ -126,6 +126,81 @@ void test_ft_return_excve_data(void)
 	TEST_ASSERT_NULL(data->prog_tab[3]);
 	ft_free_execve_data(data);	
 	free(cmd_absolute_path);
+}
+/* ft_list_to_execve */
+//t_execve_data *ft_list_to_execve(t_list_pipex *start, char **envp)
+void test_ft_list_to_execve_should_return_null_when_envp_is_null(void)
+{
+	t_list_pipex *list = NULL;
+	ft_addback_pipex_list(&list, ft_new_pipex_list(CMD1));
+	ft_addback_pipex_list(&list, ft_new_pipex_list(FILE1));
+	TEST_ASSERT_NULL(ft_list_to_execve(list, NULL));
+	ft_free_pipex_list(&list);
+}
+void test_ft_list_to_execve_should_return_null_when_list_is_null(void)
+{
+	TEST_ASSERT_NULL(ft_list_to_execve(NULL, envp));
+}
+void test_ft_list_to_execve_should_return_correct_data_for_start_is_first_element_ON_cmd_args_file(void)
+{
+	/* IF wrong , change files */
+	TEST_ASSERT_TRUE(access(FILE1, F_OK) == 0);
+	TEST_ASSERT_TRUE(access(FILE2, F_OK) == 0);
+
+	t_list_pipex *list = NULL;
+	t_execve_data *data = NULL;
+	char *cmd = CMD1;
+	char *cmd_args = CMD1ARGS;
+	char *expected_cmd_path = ft_return_cmd_absolute_path(cmd, ft_extract_envar_path(envp));
+	char *expected_progtab_0 = CMD1;
+	char *expected_progtab_1 = CMD1ARGS;
+	char *expected_progtab_2 = FILE1;
+	char *expected_progtab_3 = NULL;
+	//for start is first
+	//for cmd args file
+	ft_addback_pipex_list(&list, ft_new_pipex_list(CMD1));
+	ft_addback_pipex_list(&list, ft_new_pipex_list(CMD1ARGS));
+	ft_addback_pipex_list(&list, ft_new_pipex_list(FILE1));
+	data = ft_list_to_execve(list, envp);
+
+	TEST_ASSERT_EQUAL_STRING(expected_cmd_path, data->cmd_path);
+	TEST_ASSERT_EQUAL_STRING(expected_progtab_0, data->prog_tab[0]);
+	TEST_ASSERT_EQUAL_STRING(expected_progtab_1, data->prog_tab[1]);
+	TEST_ASSERT_EQUAL_STRING(expected_progtab_2, data->prog_tab[2]);
+	TEST_ASSERT_NULL(data->prog_tab[3]);
+
+	ft_free_pipex_list(&list);
+	ft_free_execve_data(data);
+	free(expected_cmd_path);
+}
+void test_ft_list_to_execve_should_return_correct_data_for_start_is_first_element_ON_cmd_file(void)
+{
+	/* IF wrong , change files */
+	TEST_ASSERT_TRUE(access(FILE1, F_OK) == 0);
+	TEST_ASSERT_TRUE(access(FILE2, F_OK) == 0);
+
+	t_list_pipex *list = NULL;
+	t_execve_data *data = NULL;
+	char *cmd = CMD1;
+	char *cmd_args = "";
+	char *expected_cmd_path = ft_return_cmd_absolute_path(cmd, ft_extract_envar_path(envp));
+	char *expected_progtab_0 = CMD1;
+	char *expected_progtab_1 = "";
+	char *expected_progtab_2 = FILE1;
+	char *expected_progtab_3 = NULL;
+	ft_addback_pipex_list(&list, ft_new_pipex_list(CMD1));
+	ft_addback_pipex_list(&list, ft_new_pipex_list(FILE1));
+	data = ft_list_to_execve(list, envp);
+
+	TEST_ASSERT_EQUAL_STRING(expected_cmd_path, data->cmd_path);
+	TEST_ASSERT_EQUAL_STRING(expected_progtab_0, data->prog_tab[0]);
+	TEST_ASSERT_EQUAL_STRING(expected_progtab_1, data->prog_tab[1]);
+	TEST_ASSERT_EQUAL_STRING(expected_progtab_2, data->prog_tab[2]);
+	TEST_ASSERT_NULL(data->prog_tab[3]);
+
+	ft_free_pipex_list(&list);
+	ft_free_execve_data(data);
+	free(expected_cmd_path);
 }
 
 #endif // TEST

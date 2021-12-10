@@ -6,7 +6,7 @@
 /*   By: amaroni <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 18:28:26 by amaroni           #+#    #+#             */
-/*   Updated: 2021/12/10 10:25:19 by amaroni          ###   ########.fr       */
+/*   Updated: 2021/12/10 10:58:22 by amaroni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ typedef struct s_list_pipex{
 }		t_list_pipex;
 
 /* prog_tab[0] = cmd,
- * prog_tab[1] = cmd_args OR NULL,
- * prog_tab[2] = file OR NULL,
+ * prog_tab[1] = cmd_args OR "",
+ * prog_tab[2] = file OR "",
  * prog_tab[3] = NULL
  */
 typedef struct s_execve_data{

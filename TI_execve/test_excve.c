@@ -22,35 +22,6 @@ char **test_tabexecve(t_list_pipex *list)
 	return (rt);
 }
 
-/* this function go through the list from the starting point and then return the data to feed inside execve */
-t_execve_data *ft_list_to_execve(t_execve_data *t_list_pipex *start, char **envp)
-{
-	t_list_pipex *tmp;
-	size_t i;
-	t_execve_data *rt;
-
-	if (!start)
-		return (NULL);
-	tmp = start;
-	i = 0;
-	while (tmp || ft_strncmp(tmp->content, "|", sizeof(char)))
-	{
-		tmp = tmp->next;
-		i++;
-	}
-	if (i == 3)
-		rt = ft_return_excve_data(start->content,
-				start->next->content, start->next->next->content, envp);
-	else if (i == 2 && start->next->conent is a file)
-		ft_return_excve_data(start->content, "", start->next->content, envp);
-	else if (i == 2 && start->next->content is not a file)
-		ft_return_excve_data(start->content,start->next->content,NULL, envp);
-	else if (i == 1)
-		ft_return_excve_data(start->content, NULL, NULL, envp);
-	else
-		rt = NULL; //probleme
-	return (rt);
-}
 
 //pipex file1 cmd1
 /* Entourer les arguments en entree avec des guillemets */
@@ -59,7 +30,7 @@ int main(int argc, char **argv, char **envp)
 	if (argc != 3)
 		return (-1); //Error
 	t_list_pipex *list = ft_init_pipex_list(argc, argv);
-	char **tab_execve = ft_return_excve_data(list->content, lis
+	t_execve_data *execve_data = ft_list_to_execve(list, envp);
 	char *cmd_to_exectute = preparate_cmd(argv);
 	//FILE1
 	FILE *f1 = freopen(OUTPUT1,"w+", stdout);	
@@ -67,11 +38,11 @@ int main(int argc, char **argv, char **envp)
 	fclose(f1);
 	//FILE2
 	FILE *f2 = freopen(OUTPUT2,"w+", stdout);	
-	execve(ft_return_cmd_absolute_path(list->next->content, ft_extract_envar_path(envp)), tab_execve, envp);
+	execve(execve_data->cmd_path, execve_data->prog_tab, execve_data->envp);
 	fclose(f2);
 	//FREE
 	free(cmd_to_exectute);
-	ft_free_2dtab((void **)tab_execve);
+	ft_free_execve_data(execve_data);
 	ft_free_pipex_list(&list);
 	return (0);
 }
