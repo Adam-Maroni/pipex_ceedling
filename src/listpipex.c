@@ -6,11 +6,11 @@
 /*   By: amaroni <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 14:11:29 by amaroni           #+#    #+#             */
-/*   Updated: 2021/12/10 09:47:31 by amaroni          ###   ########.fr       */
+/*   Updated: 2021/12/13 18:35:09 by amaroni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "listpipex.h"
+#include "pipex.h"
 
 /*
  * This function initliaze the list
@@ -19,25 +19,16 @@
 t_list_pipex	*ft_init_pipex_list(int argc, char **argv)
 {
 	t_list_pipex	*list;
-	char			*cmd;
 	size_t			i;
 
 	if (!argv || argc < 2)
 		return (NULL);
 	list = NULL;
 	i = 2;
-	while (i < argc)
+	while ((int)i < argc - 1)
 	{
-		cmd = ft_extract_cmd(argv[i]);
-		ft_addback_pipex_list(&list, ft_new_pipex_list(cmd));
-		free(cmd);
-		cmd = ft_extract_cmd_args(argv[i]);
-		if (cmd)
-			ft_addback_pipex_list(&list, ft_new_pipex_list(cmd));
-		free(cmd);
-		if (i == 2)
-			ft_addback_pipex_list(&list, ft_new_pipex_list(argv[1]));
-		if (i < argc - 1)
+		ft_addback_pipex_list(&list, ft_new_pipex_list(argv[i]));
+		if ((int)i < argc - 2)
 			ft_addback_pipex_list(&list, ft_new_pipex_list("|"));
 		i++;
 	}
